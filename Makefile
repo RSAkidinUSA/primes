@@ -1,20 +1,17 @@
 .PHONY: all
 
 TARGETS := fast fast-test small small-test
+NUM_CYCLES = 10000
 
+time: fast small
+test: fast-test small-test
 all: $(TARGETS)
 
-fast: fast.c
-	$(CC) -o $@ $? main.c
+%: %.c main.c
+	$(CC) -o $@ $? -DNUM_CYCLES=$(NUM_CYCLES)
 
-fast-test: fast.c
-	$(CC) -o $@ $? main.c -DTESTING
-
-small: small.c
-	$(CC) -o $@ $? main.c
-
-small-test: small.c
-	$(CC) -o $@ $? main.c -DTESTING
+%-test: %.c main.c
+	$(CC) -o $@ $? -DTESTING
 
 clean:
 	rm -f $(TARGETS)

@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+#define NUM_BITS 8
 bool is_prime(int num);
 
 #endif
